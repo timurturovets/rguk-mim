@@ -18,7 +18,7 @@ export const handler = async (event) => {
     const sheets = google.sheets({ version: "v4", auth });
 
     await sheets.spreadsheets.values.append({
-      spreadsheetId: "1Nb7o7D5n9NQ8vbJoao2nCgfLVXCcvkNocbXdgY0qnmg",
+      spreadsheetId: "1qAw5V_dl6Ls18jc7Q-MQ7Lv1oC8f_e2b5DLkMXWWMjE",
       range: "Заявки!A:H",
       valueInputOption: "USER_ENTERED",
       requestBody: {
