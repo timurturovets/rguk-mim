@@ -269,6 +269,12 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(105, 0, 0, 0.4);
         }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
     </style>
 </head>
 <body>
@@ -339,7 +345,7 @@
                 <label>Почему именно ты?</label>
                 <textarea id="reason" placeholder="Объясни, почему мы должны взять тебя" rows="3" required></textarea>
             </div>
-            <button type="submit" class="submit-btn">Отправить заявку</button>
+            <button type="submit" class="submit-btn" id="submitBtn">Отправить заявку</button>
         </form>
     </div>
 
@@ -517,16 +523,30 @@
 
         async function submitForm(event) {
             event.preventDefault();
-
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.textContent;
+            
+            // Делаем кнопку неактивной и показываем сообщение о загрузке
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Отправка...';
+            
             const formData = new FormData(event.target);
             const body = Object.fromEntries(formData.entries());
 
-            await fetch("/.netlify/functions/submit-form", {
-                method: "POST",
-                body: JSON.stringify(body),
-            });
-            
-            window.location.href = 'success.html';
+            try {
+                await fetch("/.netlify/functions/submit-form", {
+                    method: "POST",
+                    body: JSON.stringify(body),
+                });
+                
+                window.location.href = 'success.html';
+            } catch (error) {
+                // В случае ошибки возвращаем кнопку
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+                alert('Произошла ошибка. Попробуй еще раз.');
+            }
         }
 
         function updateRangeValue(value) {
