@@ -1,6 +1,12 @@
 import { google } from "googleapis";
 
 export const handler = async (event) => {
+  console.log('NODE VERSION');
+  console.log('NODE VERSION');
+  console.log(process.version);
+  console.log('NODE VERSION');
+  console.log('NODE VERSION');
+
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
