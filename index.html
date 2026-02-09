@@ -34,6 +34,12 @@
             width: 350px;
             height: 350px;
             margin-top: 50px;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .wheel-container.loaded {
+            opacity: 1;
         }
 
         #wheel {
@@ -69,9 +75,14 @@
             border-radius: 50px;
             cursor: pointer;
             box-shadow: 0 8px 20px rgba(105, 0, 0, 0.4);
-            transition: all 0.3s ease;
+            transition: all 0.3s ease, opacity 1.5s ease;
             text-transform: uppercase;
             letter-spacing: 2px;
+            opacity: 0;
+        }
+
+        .spin-btn.loaded {
+            opacity: 1;
         }
 
         .spin-btn:hover {
@@ -306,7 +317,8 @@
             </div>
             <div class="form-group">
                 <label>Ссылка на ВК</label>
-                <input type="url" id="vk" placeholder="https://vk.com/..." required>
+                <input type="text" id="vk" placeholder="vk.com/..." required oninput="validateVkLink(this)">
+                <small id="vkError" style="color: #ff6b6b; display: none;">Введи корректную ссылку на свой ВК</small>
             </div>
             <div class="form-group">
                 <label>Откуда узнал о проекте?</label>
@@ -515,41 +527,46 @@
             });
             
             window.location.href = 'success.html';
-            
-            /*event.preventDefault();
-            const fullName = document.getElementById('fullName').value;
-            const usp = document.getElementById('usp').value;
-            const course = document.getElementById('course').value;
-            const vk = document.getElementById('vk').value;
-            const source = document.getElementById('source').value;
-            const talent = document.getElementById('talent').value;
-            const time = document.getElementById('time').value;
-            const reason = document.getElementById('reason').value;
-            
-            const formData = {
-                ФИО: fullName,
-                УСП: usp,
-                Курс: course,
-                ВК: vk,
-                Источник: source,
-                Талант: talent,
-                Время: time + '%',
-                Причина: reason
-            };
-            
-            console.log('Форма отправлена:', formData);
-            
-            alert('Спасибо! Ваша заявка принята.');
-            
-            document.getElementById('registrationForm').reset();
-            document.getElementById('rangeValue').textContent = '50';
-            */
         }
 
         function updateRangeValue(value) {
             document.getElementById('rangeValue').textContent = value;
         }
+        
+        function validateVkLink(input) {
+            const vkError = document.getElementById('vkError');
+            const vkPattern = /vk\.com/i;
+            if (vkPattern.test(input.value)) {
+                vkError.style.display = 'none';
+                input.setCustomValidity('');
+            } else {
+                vkError.style.display = 'block';
+                input.setCustomValidity('Введи корректную ссылку на свой ВК');
+            }
+        }
+
+        function updateRangeValue(value) {
+            document.getElementById('rangeValue').textContent = value;
+        }
+        
+        function validateVkLink(input) {
+            const vkError = document.getElementById('vkError');
+            const vkPattern = /vk\.com/i;
+            if (vkPattern.test(input.value)) {
+                vkError.style.display = 'none';
+                input.setCustomValidity('');
+            } else {
+                vkError.style.display = 'block';
+                input.setCustomValidity('Введи корректную ссылку на свой ВК');
+            }
+        }
         drawWheel();
+        
+        // Плавное появление колеса и кнопки при загрузке
+        window.addEventListener('load', () => {
+            document.querySelector('.wheel-container').classList.add('loaded');
+            document.querySelector('.spin-btn').classList.add('loaded');
+        });
     </script>
 </body>
 </html>
