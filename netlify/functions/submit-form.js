@@ -10,7 +10,6 @@ export const handler = async (event) => {
 
   try {
     const data = JSON.parse(event.body);
-    console.log('DATA:', data);
 
     const auth = new google.auth.JWT(
       process.env.GOOGLE_CLIENT_EMAIL,
