@@ -1,7 +1,6 @@
 // tg @teletraann
 const canvas = document.getElementById('wheel');
 const ctx = canvas.getContext('2d');
-const spinBtn = document.getElementById('spinBtn');
 const invitation = document.getElementById('invitation');
 
 const sectors = 8;
@@ -11,9 +10,9 @@ const colors = ['#e3e3e3', '#690000', '#e3e3e3', '#690000', '#e3e3e3',
 const winningSector = 0; // :)
 const texts = [
     'Приходи к нам на кастинг',
-    'Тебе повезет',
+    'Придёшь на финал Твоего Расцвета',
     'Семестр подарит радость',
-    'Прохожий подарит тебе улыбку',
+    'Тебе повезёт',
     'Все цели будут достигнуты',
     'Ты обретешь новых друзей',
     'Твоя мечта сбудется',
@@ -50,7 +49,7 @@ function drawWheel() {
         ctx.fill();
         ctx.strokeStyle = '#690000';
         ctx.lineWidth = 2;
-        ctx.stroke();
+        ctx.stroke();   
         
         if (i === winningSector) {
             ctx.globalAlpha = 1; 
@@ -81,7 +80,7 @@ function drawWheel() {
                     ctx.shadowOffsetX = 1;
                     ctx.shadowOffsetY = 1;
                     ctx.fillStyle = textColor;
-                    ctx.fillText(line.trim(), radius - 10, yOffset);
+                    ctx.fillText(line.trim(), radius - 3, yOffset);
                     line = words[j] + ' ';
                     yOffset += 16;
                 } else {
@@ -93,14 +92,14 @@ function drawWheel() {
             ctx.shadowOffsetX = 1;
             ctx.shadowOffsetY = 1;
             ctx.fillStyle = textColor;
-            ctx.fillText(line.trim(), radius - 10, yOffset);
+            ctx.fillText(line.trim(), radius - 3, yOffset);
         } else {
             ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
             ctx.shadowBlur = 2;
             ctx.shadowOffsetX = 1;
             ctx.shadowOffsetY = 1;
             ctx.fillStyle = textColor;
-            ctx.fillText(text, radius - 10, 5);
+            ctx.fillText(text, radius - 3, 5);
         }
         ctx.restore();
     }
@@ -118,7 +117,6 @@ function drawWheel() {
 function spin() {
     if (isSpinning) return;
     isSpinning = true;
-    spinBtn.disabled = true;
 
     const sectorAngle = 2 * Math.PI / sectors;
     const targetAngle = (0 * Math.PI / 180) - (winningSector * sectorAngle) - (sectorAngle / 2);
@@ -154,16 +152,8 @@ function spin() {
             
             isSpinning = false;
             
-            spinBtn.style.opacity = '0';
-            spinBtn.style.transition = 'opacity 1s ease';
-            
-            setTimeout(() => {
-                spinBtn.style.display = 'none';
-                
-                invitation.style.height = 'auto';
-                
-                invitation.classList.add('show');
-            }, 1000);
+            invitation.style.height = 'auto';
+            invitation.classList.add('show');
         }
     }
 
@@ -204,35 +194,20 @@ function updateRangeValue(value) {
 }
 
 function validateVkLink(input) {
-    const vkError = document.getElementById('vkError');
     const vkPattern = /vk\.com/i;
     if (vkPattern.test(input.value)) {
-        vkError.style.display = 'none';
         input.setCustomValidity('');
     } else {
-        vkError.style.display = 'block';
         input.setCustomValidity('Введи корректную ссылку на свой ВК');
     }
 }
-
-function updateRangeValue(value) {
-    document.getElementById('rangeValue').textContent = value;
-}
-
-function validateVkLink(input) {
-    const vkError = document.getElementById('vkError');
-    const vkPattern = /vk\.com/i;
-    if (vkPattern.test(input.value)) {
-        vkError.style.display = 'none';
-        input.setCustomValidity('');
-    } else {
-        vkError.style.display = 'block';
-        input.setCustomValidity('Введи корректную ссылку на свой ВК');
-    }
-}
-drawWheel();
 
 window.addEventListener('load', () => {
     document.querySelector('.wheel-container').classList.add('loaded');
-    document.querySelector('.spin-btn').classList.add('loaded');
+    
+    setTimeout(() => {
+        spin();
+    }, 1500);
 });
+
+drawWheel();
