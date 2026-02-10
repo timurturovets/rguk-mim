@@ -11,7 +11,7 @@ export const handler = async (event) => {
   try {
     const data = JSON.parse(event.body);
     console.log('DATA:', data);
-    
+
     const auth = new google.auth.JWT(
       process.env.GOOGLE_CLIENT_EMAIL,
       null,
@@ -34,7 +34,8 @@ export const handler = async (event) => {
           data.source,
           data.talent,
           data.time,
-          data.reason
+          data.reason,
+          (new Date()).toLocaleString('ru-RU')
         ]],
       },
     });

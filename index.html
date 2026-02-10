@@ -289,11 +289,11 @@
         <form class="registration-form" id="registrationForm" onsubmit="submitForm(event)">
             <div class="form-group">
                 <label>ФИО</label>
-                <textarea id="fullName" placeholder="Введи ФИО" rows="2" required></textarea>
+                <textarea name="fullName" id="fullName" placeholder="Введи ФИО" rows="2" required></textarea>
             </div>
             <div class="form-group">
                 <label>УСП</label>
-                <select id="usp" required>
+                <select name="usp" id="usp" required>
                     <option value="">Выбери институт</option>
                     <option value="ИИТиЦТ">ИИТиЦТ</option>
                     <option value="ИМиР">ИМиР</option>
@@ -310,7 +310,7 @@
             </div>
             <div class="form-group">
                 <label>Курс</label>
-                <select id="course" required>
+                <select name="course" id="course" required>
                     <option value="">Выбери курс</option>
                     <option value="1 курс">1 курс</option>
                     <option value="2 курс">2 курс</option>
@@ -323,27 +323,27 @@
             </div>
             <div class="form-group">
                 <label>Ссылка на ВК</label>
-                <input type="text" id="vk" placeholder="vk.com/..." required oninput="validateVkLink(this)">
+                <input name="vk" type="text" id="vk" placeholder="vk.com/..." required oninput="validateVkLink(this)">
                 <small id="vkError" style="color: #ff6b6b; display: none;">Введи корректную ссылку на свой ВК</small>
             </div>
             <div class="form-group">
                 <label>Откуда узнал о проекте?</label>
-                <input type="text" id="source" placeholder="Соцсети Студсовета, друзья и т.д." required>
+                <input name="source" type="text" id="source" placeholder="Соцсети Студсовета, друзья и т.д." required>
             </div>
             <div class="form-group">
                 <label>Твой талант</label>
-                <input type="text" id="talent" placeholder="С каким талантом придешь?" required>
+                <input name="talent" type="text" id="talent" placeholder="С каким талантом придешь?" required>
             </div>
             <div class="form-group">
                 <label>Сколько времени ты готов тратить на проект (от 0 до 100)?</label>
                 <div class="range-container">
-                    <input type="range" id="time" min="0" max="100" value="50" oninput="updateRangeValue(this.value)">
+                    <input name="time" type="range" id="time" min="0" max="100" value="50" oninput="updateRangeValue(this.value)">
                     <span class="range-value" id="rangeValue">50</span>
                 </div>
             </div>
             <div class="form-group">
                 <label>Почему именно ты?</label>
-                <textarea id="reason" placeholder="Объясни, почему мы должны взять тебя" rows="3" required></textarea>
+                <textarea name="reason" id="reason" placeholder="Объясни, почему мы должны взять тебя" rows="3" required></textarea>
             </div>
             <button type="submit" class="submit-btn" id="submitBtn">Отправить заявку</button>
         </form>
@@ -527,12 +527,12 @@
             const submitBtn = document.getElementById('submitBtn');
             const originalText = submitBtn.textContent;
             
-            // Делаем кнопку неактивной и показываем сообщение о загрузке
             submitBtn.disabled = true;
             submitBtn.textContent = 'Отправка...';
             
             const formData = new FormData(event.target);
             const body = Object.fromEntries(formData.entries());
+            console.log("BODY TO SEND:", body);
 
             try {
                 await fetch("/.netlify/functions/submit-form", {
