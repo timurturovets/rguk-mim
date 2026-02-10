@@ -1,19 +1,17 @@
 import { google } from "googleapis";
 
 export const handler = async (event) => {
-  console.log('NODE VERSION');
-  console.log('NODE VERSION');
-  console.log(process.version);
-  console.log('NODE VERSION');
-  console.log('NODE VERSION');
-
+  console.log('NODE VERSION', process.version);
+  console.log("RAW BODY:", event.body);
+  
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
   try {
     const data = JSON.parse(event.body);
-
+    console.log('DATA:', data);
+    
     const auth = new google.auth.JWT(
       process.env.GOOGLE_CLIENT_EMAIL,
       null,
