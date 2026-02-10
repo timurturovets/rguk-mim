@@ -23,7 +23,7 @@ export const handler = async (event) => {
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: "1qAw5V_dl6Ls18jc7Q-MQ7Lv1oC8f_e2b5DLkMXWWMjE",
-      range: "Заявки!A:H",
+      range: "Заявки!A:I",
       valueInputOption: "USER_ENTERED",
       requestBody: {
         values: [[
