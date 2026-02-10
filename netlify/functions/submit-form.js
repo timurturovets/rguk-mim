@@ -19,6 +19,12 @@ export const handler = async (event) => {
       ["https://www.googleapis.com/auth/spreadsheets"]
     );
 
+    const now = new Date();
+    const options = {
+        timeZone: 'Europe/Moscow',
+        hour12: false
+    };
+
     const sheets = google.sheets({ version: "v4", auth });
 
     await sheets.spreadsheets.values.append({
@@ -35,7 +41,7 @@ export const handler = async (event) => {
           data.talent,
           data.time,
           data.reason,
-          (new Date()).toLocaleString('ru-RU')
+          now.toLocaleString('ru-RU', options)
         ]],
       },
     });
