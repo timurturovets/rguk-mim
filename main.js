@@ -49,8 +49,20 @@ function drawWheel() {
         ctx.fill();
         ctx.strokeStyle = '#004C45';
         ctx.lineWidth = 2;
-        ctx.stroke();   
+        ctx.stroke();
         
+        // Outer glow circle (drawn once after all sectors)
+        if (i === sectors - 1) {
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius + 2, 0, 2 * Math.PI);
+            ctx.shadowColor = '#004C45';
+            ctx.shadowBlur = 30;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
+            ctx.strokeStyle = '#004C45';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
         if (i === winningSector) {
             ctx.globalAlpha = 1; 
         } else {
@@ -165,11 +177,16 @@ function spin() {
             bgOverlay.style.zIndex = '-1';
             bgOverlay.style.opacity = '0';
             bgOverlay.style.transition = 'opacity 1s ease';
-            document.body.appendChild(bgOverlay);
-            
-            requestAnimationFrame(() => {
-                bgOverlay.style.opacity = '1';
-            });
+            const bgImage = new Image();
+            bgImage.onload = () => {
+                document.body.appendChild(bgOverlay);
+                // Force reflow to ensure opacity:0 is painted before transition
+                bgOverlay.offsetHeight;
+                requestAnimationFrame(() => {
+                    bgOverlay.style.opacity = '1';
+                });
+            };
+            bgImage.src = 'bg.png';
             
             invitation.style.height = 'auto';
             invitation.classList.add('show');
