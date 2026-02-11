@@ -51,7 +51,6 @@ function drawWheel() {
         ctx.lineWidth = 2;
         ctx.stroke();
         
-        // Outer glow circle (drawn once after all sectors)
         if (i === sectors - 1) {
             ctx.beginPath();
             ctx.arc(centerX, centerY, radius + 2, 0, 2 * Math.PI);
@@ -180,7 +179,6 @@ function spin() {
             const bgImage = new Image();
             bgImage.onload = () => {
                 document.body.appendChild(bgOverlay);
-                // Force reflow to ensure opacity:0 is painted before transition
                 bgOverlay.offsetHeight;
                 requestAnimationFrame(() => {
                     bgOverlay.style.opacity = '1';
