@@ -10,7 +10,7 @@ const colors = ['#FFFDF8', '#810004', '#FFFDF8', '#004C45', '#FFFDF8',
 const winningSector = 0; // :)
 const texts = [
     'Приходи к нам на кастинг', 
-    'Ты придёшь на финал Твоего Расцвета',
+    'Ждём на финале "Твоего Расцвета"',
     'Семестр подарит радость',
     'Тебе повезёт',
     'Все цели будут достигнуты',
@@ -79,38 +79,38 @@ function drawWheel() {
         const text = texts[i];
         const maxWidth = radius - 60;
         
-        if (ctx.measureText(text).width > maxWidth) {
+        let lines = [];
+        if (text === 'Ждём на финале "Твоего Расцвета"') {
+            lines = ['Ждём на финале', '"Твоего Расцвета"'];
+        } else {
             const words = text.split(' ');
-            let line = '';
-            let yOffset = -6;
+            let currentLine = '';
             for (let j = 0; j < words.length; j++) {
-                const testLine = line + words[j] + ' ';
+                const testLine = currentLine + (currentLine ? ' ' : '') + words[j];
                 if (ctx.measureText(testLine).width > maxWidth && j > 0) {
-                    ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
-                    ctx.shadowBlur = 2;
-                    ctx.shadowOffsetX = 1;
-                    ctx.shadowOffsetY = 1;
-                    ctx.fillStyle = textColor;
-                    ctx.fillText(line.trim(), radius - 20, yOffset);
-                    line = words[j] + ' ';
-                    yOffset += 16;
+                    lines.push(currentLine);
+                    currentLine = words[j];
                 } else {
-                    line = testLine;
+                    currentLine = testLine;
                 }
             }
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
-            ctx.shadowBlur = 2;
-            ctx.shadowOffsetX = 1;
-            ctx.shadowOffsetY = 1;
-            ctx.fillStyle = textColor;
-            ctx.fillText(line.trim(), radius - 20, yOffset);
-        } else {
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
-            ctx.shadowBlur = 2;
-            ctx.shadowOffsetX = 1;
-            ctx.shadowOffsetY = 1;
-            ctx.fillStyle = textColor;
-            ctx.fillText(text, radius - 20, 5);
+            if (currentLine) {
+                lines.push(currentLine);
+            }
+        }
+        
+        const lineHeight = 16;
+        const totalTextHeight = (lines.length - 1) * lineHeight;
+        const startY = -totalTextHeight / 2 + 5;
+        
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+        ctx.shadowBlur = 2;
+        ctx.shadowOffsetX = 1;
+        ctx.shadowOffsetY = 1;
+        ctx.fillStyle = textColor;
+        
+        for (let j = 0; j < lines.length; j++) {
+            ctx.fillText(lines[j], radius - 15, startY + j * lineHeight);
         }
         ctx.restore();
     }
