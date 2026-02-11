@@ -103,7 +103,14 @@ function drawWheel() {
         const totalTextHeight = (lines.length - 1) * lineHeight;
         const startY = -totalTextHeight / 2 + 5;
         
-        ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+        // Fade white text on colored sectors
+        if (i % 2 !== 0) {
+            ctx.globalAlpha = 1 - (fadeProgress * 0.7);
+        } else {
+            ctx.globalAlpha = 1;
+        }
+        
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
         ctx.shadowBlur = 2;
         ctx.shadowOffsetX = 1;
         ctx.shadowOffsetY = 1;
