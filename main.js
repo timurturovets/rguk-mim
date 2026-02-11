@@ -5,12 +5,12 @@ const invitation = document.getElementById('invitation');
 
 const sectors = 8;
 
-const colors = ['#e3e3e3', '#690000', '#e3e3e3', '#690000', '#e3e3e3', 
-                '#690000', '#e3e3e3', '#690000'];
+const colors = ['#FFFDF8', '#810004', '#FFFDF8', '#004C45', '#FFFDF8', 
+                '#810004', '#FFFDF8', '#004C45'];
 const winningSector = 0; // :)
 const texts = [
-    'Приходи к нам на кастинг',
-    'Придёшь на финал Твоего Расцвета',
+    'Приходи к нам на кастинг', 
+    'Ты придёшь на финал Твоего Расцвета',
     'Семестр подарит радость',
     'Тебе повезёт',
     'Все цели будут достигнуты',
@@ -47,7 +47,7 @@ function drawWheel() {
         
         ctx.fillStyle = colors[i];
         ctx.fill();
-        ctx.strokeStyle = '#690000';
+        ctx.strokeStyle = '#004C45';
         ctx.lineWidth = 2;
         ctx.stroke();   
         
@@ -61,9 +61,9 @@ function drawWheel() {
         ctx.translate(centerX, centerY);
         ctx.rotate(startAngle + Math.PI / sectors);
         ctx.textAlign = 'right';
-        ctx.font = 'bold 16px Verdana';
+        ctx.font = '300 16px Gilroy, sans-serif';
         
-        const textColor = (i % 2 === 0) ? '#690000' : '#e3e3e3';
+        const textColor = (i % 2 === 0) ? '#004C45' : '#FFFDF8';
         
         const text = texts[i];
         const maxWidth = radius - 60;
@@ -80,7 +80,7 @@ function drawWheel() {
                     ctx.shadowOffsetX = 1;
                     ctx.shadowOffsetY = 1;
                     ctx.fillStyle = textColor;
-                    ctx.fillText(line.trim(), radius - 3, yOffset);
+                    ctx.fillText(line.trim(), radius - 20, yOffset);
                     line = words[j] + ' ';
                     yOffset += 16;
                 } else {
@@ -92,14 +92,14 @@ function drawWheel() {
             ctx.shadowOffsetX = 1;
             ctx.shadowOffsetY = 1;
             ctx.fillStyle = textColor;
-            ctx.fillText(line.trim(), radius - 3, yOffset);
+            ctx.fillText(line.trim(), radius - 20, yOffset);
         } else {
             ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
             ctx.shadowBlur = 2;
             ctx.shadowOffsetX = 1;
             ctx.shadowOffsetY = 1;
             ctx.fillStyle = textColor;
-            ctx.fillText(text, radius - 3, 5);
+            ctx.fillText(text, radius - 20, 5);
         }
         ctx.restore();
     }
@@ -107,9 +107,9 @@ function drawWheel() {
     ctx.globalAlpha = 1;
     ctx.beginPath();
     ctx.arc(centerX, centerY, 10, 0, 2 * Math.PI);
-    ctx.fillStyle = '#690000';
+    ctx.fillStyle = '#810004';
     ctx.fill();
-    ctx.strokeStyle = '#ffffff';
+    ctx.strokeStyle = '#FFFDF8';
     ctx.lineWidth = 3;
     ctx.stroke();
 }
@@ -151,6 +151,25 @@ function spin() {
             drawWheel();
             
             isSpinning = false;
+            
+            const bgOverlay = document.createElement('div');
+            bgOverlay.style.position = 'fixed';
+            bgOverlay.style.top = '0';
+            bgOverlay.style.left = '0';
+            bgOverlay.style.width = '100%';
+            bgOverlay.style.height = '100%';
+            bgOverlay.style.backgroundImage = 'url(bg.png)';
+            bgOverlay.style.backgroundSize = 'cover';
+            bgOverlay.style.backgroundPosition = 'center';
+            bgOverlay.style.backgroundRepeat = 'no-repeat';
+            bgOverlay.style.zIndex = '-1';
+            bgOverlay.style.opacity = '0';
+            bgOverlay.style.transition = 'opacity 1s ease';
+            document.body.appendChild(bgOverlay);
+            
+            requestAnimationFrame(() => {
+                bgOverlay.style.opacity = '1';
+            });
             
             invitation.style.height = 'auto';
             invitation.classList.add('show');

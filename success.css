@@ -1,0 +1,125 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @font-face {
+            font-family: 'bergamasco-light';
+            src: url('fonts/bergamasco-light.woff2') format('woff2');
+            font-weight: 300;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'gilroy-light';
+            src: url('fonts/gilroy-light.woff2') format('woff2');
+            font-weight: 300;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'kudry-weird-headline';
+            src: url('fonts/kudry-weird-headline.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #000000;
+            background-image: url(bg.png);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-y: auto;
+            padding: 0 20px;
+            justify-content: center;
+        }
+
+        h1 {
+            color: #ffffff;
+            margin: 30px 0;
+            font-size: 2.5em;
+            text-align: center;
+            font-family: 'bergamasco-light', sans-serif;
+        }
+
+        .first-letter {
+            font-family: 'kudry-weird-headline', sans-serif;
+            font-size: 1.5em;
+        }
+
+        .message {
+            color: #e3e3e3;
+            font-size: 1.5em;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .chat-link {
+            color: #ffffff;
+            font-size: 1.3em;
+            text-align: center;
+            margin-bottom: 40px;
+            font-family: 'gilroy-light', sans-serif;
+        }
+
+        .chat-link a {
+            color: #ffffff;
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+
+        .chat-link a:hover {
+            color: #004C45;
+        }
+
+        .contact {
+            color: #e3e3e3;
+            font-size: 1.2em;
+            text-align: center;
+            font-family: 'gilroy-light', sans-serif;
+        }
+
+        .contact a {
+            color: #ffffff;
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+
+        .contact a:hover {
+            color: #004C45;
+        }
+
+        .checkmark {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 30px;
+        }
+
+        .checkmark circle {
+            fill: url(#gradient);
+        }
+
+        .checkmark path {
+            fill: none;
+            stroke: #ffffff;
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: drawCheck 0.5s ease forwards 0.3s;
+        }
+
+        @keyframes drawCheck {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }

@@ -4,255 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>МиМ 2026</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #000000;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow-y: auto;
-            padding: 0 20px;
-        }
-
-        h1 {
-            color: #ffffff;
-            margin: 30px 0;
-            font-size: 2.5em;
-            text-align: center;
-        }
-
-        .wheel-container {
-            position: relative;
-            width: 350px;
-            height: 350px;
-            margin-top: 50px;
-            opacity: 0;
-            transition: opacity 1.5s ease;
-        }
-
-        .wheel-container.loaded {
-            opacity: 1;
-        }
-
-        #wheel {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            border: 8px solid #690000;
-        }
-
-        .pointer {
-            position: absolute;
-            top: 50%;
-            right: -10px;
-            transform: translateY(-50%);
-            width: 0;
-            height: 0;
-            border-top: 20px solid transparent;
-            border-bottom: 20px solid transparent;
-            border-right: 30px solid #690000;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
-            z-index: 10;
-        }
-
-        .pointer {
-            position: absolute;
-            top: 50%;
-            right: -10px;
-            transform: translateY(-50%);
-            width: 0;
-            height: 0;
-            border-top: 20px solid transparent;
-            border-bottom: 20px solid transparent;
-            border-right: 30px solid #690000;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
-            z-index: 10;
-        }
-
-        .result {
-            margin-top: 20px;
-            padding: 15px 30px;
-            font-size: 1.3em;
-            color: #ffffff;
-            text-align: center;
-            min-height: 50px;
-        }
-
-        .result strong {
-            color: #690000;
-        }
-
-        .invitation {
-            height: 0;
-            overflow: hidden;
-            margin-top: 40px;
-            text-align: center;
-            opacity: 0;
-            transition: opacity 1s ease;
-        }
-
-        .invitation.show {
-            height: auto;
-            opacity: 1;
-        }
-
-        .invitation-text {
-            color: #e3e3e3;
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .registration-form {
-            background: rgba(227, 227, 227, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 15px;
-            border: 2px solid #690000;
-            min-width: 350px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid #690000;
-            border-radius: 8px;
-            color: #e3e3e3;
-            font-size: 1em;
-            transition: all 0.3s ease;
-        }
-
-        .form-group label {
-            display: block;
-            color: #e3e3e3;
-            margin-bottom: 8px;
-            font-size: 0.95em;
-        }
-
-        .form-group select {
-            width: 100%;
-            padding: 12px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid #690000;
-            border-radius: 8px;
-            color: #e3e3e3;
-            font-size: 1em;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .form-group select:focus {
-            outline: none;
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 15px rgba(105, 0, 0, 0.5);
-        }
-
-        .form-group select option {
-            background: #333;
-            color: #e3e3e3;
-        }
-
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid #690000;
-            border-radius: 8px;
-            color: #e3e3e3;
-            font-size: 1em;
-            font-family: inherit;
-            resize: vertical;
-            transition: all 0.3s ease;
-        }
-
-        .form-group textarea:focus {
-            outline: none;
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 15px rgba(105, 0, 0, 0.5);
-        }
-
-        .range-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .form-group input[type="range"] {
-            flex: 1;
-            appearance: none;
-            -webkit-appearance: none;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-            border: none;
-        }
-
-        .form-group input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
-            background: #690000;
-            border: 2px solid #e3e3e3;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .range-value {
-            color: #e3e3e3;
-            font-size: 1em;
-            min-width: 40px;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 15px rgba(105, 0, 0, 0.5);
-        }
-
-        .form-group input::placeholder {
-            color: rgba(227, 227, 227, 0.5);
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            background: #690000;
-            border: 2px solid #e3e3e3;
-            border-radius: 8px;
-            color: #e3e3e3;
-            font-size: 1.1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
-
-        .submit-btn:hover {
-            background: #8B0000;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(105, 0, 0, 0.4);
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-    </style>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <div class="wheel-container">
@@ -261,57 +13,69 @@
     </div>
 
     <div class="invitation" id="invitation">
-        <p class="invitation-text">Приглашаем тебя на кастинг Мисс и Мистер РГУ 2026!</p>
+        <p class="invitation-text">Приглашаем тебя на кастинг самого красивого и масштабного проекта весны "Мисс и Мистер Студенчество Университета Косыгина 2026"</p>
         <form class="registration-form" id="registrationForm" onsubmit="submitForm(event)">
             <div class="form-group">
                 <label>ФИО</label>
-                <textarea name="fullName" id="fullName" placeholder="Введи ФИО" rows="2" required></textarea>
+                <div class="gradient-border">
+                    <textarea name="fullName" id="fullName" placeholder="Введи ФИО" rows="2" required></textarea>
+                </div>
             </div>
             <div class="form-group">
                 <label>УСП</label>
-                <select name="usp" id="usp" required>
-                    <option value="">Выбери институт</option>
-                    <option value="ИИТиЦТ">ИИТиЦТ</option>
-                    <option value="ИМиР">ИМиР</option>
-                    <option value="ИИ">ИИ</option>
-                    <option value="ИД">ИД</option>
-                    <option value="ИСК">ИСК</option>
-                    <option value="ИСИ">ИСИ</option>
-                    <option value="ИХТиПЭ">ИХТиПЭ</option>
-                    <option value="ТИТЛП">ТИТЛП</option>
-                    <option value="ИАиМ">ИАиМ</option>
-                    <option value="Колледж">Колледж</option>
-                    <option value="ИЭиМ">ИЭиМ</option>
-                </select>
+                <div class="gradient-border select-wrapper">
+                    <select name="usp" id="usp" required>
+                        <option value="">Выбери институт</option>
+                        <option value="ИИТиЦТ">ИИТиЦТ</option>
+                        <option value="ИМиР">ИМиР</option>
+                        <option value="ИИ">ИИ</option>
+                        <option value="ИД">ИД</option>
+                        <option value="ИСК">ИСК</option>
+                        <option value="ИСИ">ИСИ</option>
+                        <option value="ИХТиПЭ">ИХТиПЭ</option>
+                        <option value="ТИТЛП">ТИТЛП</option>
+                        <option value="ИАиМ">ИАиМ</option>
+                        <option value="Колледж">Колледж</option>
+                        <option value="ИЭиМ">ИЭиМ</option>
+                    </select>
+                </div>
             </div>
             <div class="form-group">
                 <label>Курс</label>
-                <select name="course" id="course" required>
-                    <option value="">Выбери курс</option>
-                    <option value="1 курс">1 курс</option>
-                    <option value="2 курс">2 курс</option>
-                    <option value="3 курс">3 курс</option>
-                    <option value="4 курс">4 курс</option>
-                    <option value="5 курс">5 курс</option>
-                    <option value="Магистратура">Магистратура</option>
-                    <option value="Аспирантура">Аспирантура</option>
-                </select>
+                <div class="gradient-border select-wrapper">
+                    <select name="course" id="course" required>
+                        <option value="">Выбери курс</option>
+                        <option value="1 курс">1 курс</option>
+                        <option value="2 курс">2 курс</option>
+                        <option value="3 курс">3 курс</option>
+                        <option value="4 курс">4 курс</option>
+                        <option value="5 курс">5 курс</option>
+                        <option value="Магистратура">Магистратура</option>
+                        <option value="Аспирантура">Аспирантура</option>
+                    </select>
+                </div>
             </div>
             <div class="form-group">
                 <label>Ссылка на ВК</label>
-                <input name="vk" type="text" id="vk" placeholder="vk.com/..." required oninput="validateVkLink(this)">
+                <div class="gradient-border">
+                    <input name="vk" type="text" id="vk" placeholder="vk.com/..." required oninput="validateVkLink(this)">
+                </div>
                 <small id="vkError" style="color: #ff6b6b; display: none;">Введи корректную ссылку на свой ВК</small>
             </div>
             <div class="form-group">
-                <label>Откуда узнал о проекте?</label>
-                <input name="source" type="text" id="source" placeholder="Соцсети, пиар-акции, друзья и т.д." required>
+                <label>Откуда ты узнал о проекте?</label>
+                <div class="gradient-border">
+                    <input name="source" type="text" id="source" placeholder="Соцсети, пиар-акции, друзья и т.д." required>
+                </div>
             </div>
             <div class="form-group">
-                <label>Твой талант</label>
-                <input name="talent" type="text" id="talent" placeholder="С каким талантом придешь?" required>
+                <label>С каким талантом ты придешь на кастинг?</label>
+                <div class="gradient-border">
+                    <input name="talent" type="text" id="talent" placeholder="Опиши свой талант" required>
+                </div>
             </div>
             <div class="form-group">
-                <label>Сколько времени ты готов тратить на проект (от 0 до 100)?</label>
+                <label>На сколько процентов ты готов вложиться в проект?</label>
                 <div class="range-container">
                     <input name="time" type="range" id="time" min="0" max="100" value="50" oninput="updateRangeValue(this.value)">
                     <span class="range-value" id="rangeValue">50</span>
@@ -319,7 +83,9 @@
             </div>
             <div class="form-group">
                 <label>Почему именно ты?</label>
-                <textarea name="reason" id="reason" placeholder="Объясни, почему мы должны взять тебя" rows="3" required></textarea>
+                <div class="gradient-border">
+                    <textarea name="reason" id="reason" placeholder="Объясни, почему мы должны взять тебя" rows="3" required></textarea>
+                </div>
             </div>
             <button type="submit" class="submit-btn" id="submitBtn">Отправить заявку</button>
         </form>
