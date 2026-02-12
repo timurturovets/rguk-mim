@@ -30,6 +30,14 @@
             font-display: swap;
         }
 
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('./fonts/gilroy-light.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -52,13 +60,8 @@
             margin: 30px 0;
             font-size: 2.5em;
             text-align: center;
-            font-family: 'Bergamasco', sans-serif;
-            font-weight: 300;
-        }
-
-        h1::first-letter {
-            font-family: 'Kudry', serif;
-            font-size: 1.3em;
+            font-family: 'Gilroy', sans-serif;
+            font-weight: 400;
         }
 
         .wheel-container {
@@ -128,20 +131,11 @@
             font-size: 1.5em;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            font-family: 'Bergamasco', sans-serif;
+            font-family: 'Gilroy', sans-serif;
             font-weight: 400;
             max-width: 500px;
             margin-left: auto;
             margin-right: auto;
-        }
-
-        .invitation-text::first-letter {
-            font-family: 'Kudry', serif;
-            font-size: 1.2em;
-        }
-
-        .capital-kudry {
-            font-family: 'Kudry', serif;
         }
 
         .registration-form {
@@ -227,13 +221,8 @@
             color: #FFFDF8;
             margin-bottom: 8px;
             font-size: 0.95em;
-            font-family: 'Bergamasco', sans-serif;
+            font-family: 'Gilroy', sans-serif;
             font-weight: 400;
-        }
-        
-        .form-group label::first-letter {
-            font-family: 'Kudry', serif;
-            font-size: 1em;
         }
 
         .form-group select {
@@ -350,7 +339,7 @@
             color: #FFFDF8;
             font-size: 1.1em;
             font-weight: bold;
-            font-family: 'Bergamasco', sans-serif;
+            font-family: 'Gilroy', sans-serif;
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 20px;
