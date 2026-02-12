@@ -233,7 +233,7 @@
         
         .form-group label::first-letter {
             font-family: 'Kudry', serif;
-            font-size: 1.6em;
+            font-size: 1em;
         }
 
         .form-group select {
