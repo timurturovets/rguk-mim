@@ -10,6 +10,10 @@ app.use(express.static(frontendPath));
 
 app.use(express.json());
 
+app.get('/api/health', async (req, res) => {
+  return res.status(200).json({ ok: true, message: "healthy" });
+});
+
 app.post('/api/submit', async (req, res) => {
   console.log('NODE VERSION', process.version);
   console.log('BODY:', req.body);
