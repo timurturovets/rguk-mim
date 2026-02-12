@@ -132,6 +132,10 @@
             font-size: 1.2em;
         }
 
+        .capital-kudry {
+            font-family: 'Kudry', serif;
+        }
+
         .registration-form {
             background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(10px);
@@ -215,15 +219,10 @@
             color: #FFFDF8;
             margin-bottom: 8px;
             font-size: 0.95em;
-            font-family: 'Gilroy', sans-serif;
+            font-family: 'Bergamasco', sans-serif;
             font-weight: 300;
         }
         
-        .form-group label::first-letter {
-            font-family: 'Kudry', serif;
-            font-size: 1.3em;
-        }
-
         .form-group label::first-letter {
             font-family: 'Kudry', serif;
             font-size: 1.6em;
