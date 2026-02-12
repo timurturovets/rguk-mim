@@ -223,7 +223,7 @@ async function submitForm(event) {
             body: JSON.stringify(body),
         });
         
-        window.location.href = 'success.html';
+        window.location.href = 'success';
     } catch (error) {
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
