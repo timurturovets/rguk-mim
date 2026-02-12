@@ -4,7 +4,9 @@ const { google } = require('googleapis');
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'frontend')));
+const frontendPath = path.join(__dirname, '..', 'frontend');
+
+app.use(express.static(frontendPath));
 
 app.use(express.json());
 
@@ -54,11 +56,11 @@ app.post('/api/submit', async (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
+  res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
 app.get('/success', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'success.html'));
+  res.sendFile(path.join(frontendPath, 'success.html'));
 });
 
 const PORT = process.env.PORT || 3000;
