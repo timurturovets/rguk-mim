@@ -215,7 +215,7 @@ async function submitForm(event) {
     const body = Object.fromEntries(formData.entries());
 
     try {
-        await fetch("/.netlify/functions/submit-form", { 
+        await fetch("/api/submit", { 
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
