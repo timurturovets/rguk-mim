@@ -236,7 +236,7 @@ function updateRangeValue(value) {
 }
 
 function validateVkLink(input) {
-    const vkPattern = /vk\.com/i;
+    const vkPattern = /vk\.(com|ru)/i;
     if (vkPattern.test(input.value)) {
         input.setCustomValidity('');
     } else {
